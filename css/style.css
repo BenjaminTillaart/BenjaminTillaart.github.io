@@ -137,6 +137,11 @@ ul
     margin-right: -15px;
     position: relative;
 }
+
+.buttons {
+  margin-top: 20px; /* Voeg 20px ruimte boven de knop toe */
+}
+
 .btn
 {
     font-size: 16px;
@@ -302,6 +307,31 @@ ul
 {
     margin-right: 15px;
 }
+
+/* Submenu styling */
+.submenu.always-visible {
+  list-style: none;
+  padding: 5px 0;
+  margin: 5px 0 0 20px; /* Indent voor submenu */
+  background: none; /* Geen aparte achtergrond */
+}
+
+.submenu.always-visible li {
+  display: block; /* Verticale weergave */
+  margin: 5px 0; /* Ruimte tussen submenu-items */
+}
+
+.submenu.always-visible a {
+  color: #555;
+  padding: 5px 10px;
+}
+
+/* Optioneel: Styling voor hover-effecten */
+.nav a:hover, .submenu.always-visible a:hover {
+  color: #007bff;
+}
+
+
 /* home */
 .home
 {
@@ -398,6 +428,12 @@ h3.my-profession
 {
     color: var(--skin-color);
 }
+
+span
+{
+    color: var(--skin-color);
+}
+
 .about .about-content .about-text p
 {
     font-size: 16px;

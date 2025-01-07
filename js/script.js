@@ -1,10 +1,37 @@
 /* ============================== typing animation ============================ */
-var typed = new Typed(".typing",{
-    strings:["","Web Designer","Web Developer","Graphic Designer","YouTuber"],
-    typeSpeed:100,
-    BackSpeed:60,
-    loop:true
-})
+function initTypedAnimation() {
+  const typingElement = document.querySelector(".typing");
+  if (typingElement) {
+    new Typed(".typing", {
+      strings: ["", "Benjamin Tillaart", "Robin Hendriks", "Stijn Ruesink"],
+      typeSpeed: 100,
+      backSpeed: 60,
+      loop: true,
+    });
+  }
+}
+
+function loadContent(page) {
+  fetch(page)
+    .then(response => {
+      if (!response.ok) throw new Error(`Error loading ${page}`);
+      return response.text();
+    })
+    .then(html => {
+      document.getElementById('content').innerHTML = html;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // Start de animatie opnieuw als de home-sectie wordt geladen
+      if (page.includes('home.html')) {
+        initTypedAnimation();
+      }
+    })
+    .catch(error => {
+      console.error(error);
+      document.getElementById('content').innerHTML = '<p>Failed to load content.</p>';
+    });
+}
+
 /* ============================== Aside ============================ */
 const nav = document.querySelector(".nav"),
       navList = nav.querySelectorAll("li"),
