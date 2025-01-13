@@ -12,20 +12,16 @@ document.getElementById('navigation').innerHTML = `
           <a href="#" data-page="html/benjaminPortfolio.html"><i class="fa fa-user"></i>Benjamin</a>
           <a href="#" data-page="html/robinPortfolio.html"><i class="fa fa-user"></i>Robin</a>
           <a href="#" data-page="html/stijnPortfolio.html"><i class="fa fa-user"></i>Stijn</a>
+          <ul class="submenu always-visible">
+          <a href="#" data-page="html/Api's/weerAPI.html"><i class="fa fa-user"></i>Weer</a>
+          <a href="#" data-page="html/Api's/nasa.html"><i class="fa fa-user"></i>Nasa</a>
+          </ul>
         </ul>
     </li>
 
   </ul>
 `;
 
-//<li><a href="#home" class="active"><i class="fa fa-home"></i> Home</a></li>
-//        <li><a href="#about"><i class="fa fa-user"></i> About</a></li>
-//        <li><a href="#services"><i class="fa fa-list"></i>Services</a></li>
-//        <li><a href="#portfolio"><i class="fa fa-briefcase"></i>Portfolio</a></li>
-//        <li><a href="#contact"><i class="fa fa-comments"></i>Contact</a></li>
-// <li><a href="#" data-page="html/contact.html"><i class="fa fa-comments"></i>Contact</a></li>
-
-// Functie om inhoud dynamisch te laden
 function loadContent(page) {
   fetch(page)
     .then(response => {
@@ -34,12 +30,21 @@ function loadContent(page) {
     })
     .then(html => {
       document.getElementById('content').innerHTML = html;
+
+      // Scripts opnieuw uitvoeren
+      document.querySelectorAll('#content script').forEach(script => {
+        const newScript = document.createElement('script');
+        newScript.textContent = script.textContent;
+        document.body.appendChild(newScript);
+        script.remove();
+      });
     })
     .catch(error => {
       console.error(error);
       document.getElementById('content').innerHTML = '<p>Failed to load content.</p>';
     });
 }
+
 
 // Laad standaard de Home-sectie
 loadContent('html/home.html');

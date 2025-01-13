@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>Current Weather</title>
-    <link
-      href="https://fonts.googleapis.com/css?family=Montserrat:400,900"
-      rel="stylesheet"
-    />
-  </head>
-
+<head>
+  <meta charset="utf-8" />
+  <title>Current Weather</title>
+  <link
+    href="https://fonts.googleapis.com/css?family=Montserrat:400,900"
+    rel="stylesheet"
+  />
   <style>
     body {
       font-family: "Montserrat", sans-serif;
@@ -18,6 +16,7 @@
       text-shadow: 0.1em 0.1em 0 rgba(0, 0, 0, 0.3);
       height: 100vh;
       display: flex;
+      flex-direction: column; /* Zorgt ervoor dat elementen onder elkaar staan */
       align-items: center;
       justify-content: center;
       background-image: linear-gradient(
@@ -28,14 +27,32 @@
         #bde0ee,
         #c9edfa
       );
+      margin: 0; /* Verwijdert ongewenste margin */
     }
+
     h1 {
+      margin: 0 auto;
+      font-size: 2.2em;
+      text-align: center;
+      color: #fff;
     }
-    margin: 0 auto;
-    font-size: 2.2em;
-    text-align: center;
-    color: #fff;
-    font-size: 5em;
+
+    .weather-container {
+      margin: 20px 0; /* Ruimte tussen de weerboxen */
+      text-align: center;
+      padding: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.2);
+      width: 80%; /* Past de breedte van de container aan */
+      max-width: 400px;
+    }
+
+    h1.temp {
+      font-size: 5em;
+      margin: 10px 0;
+    }
+
     body.sunny {
       background-image: linear-gradient(
         to right top,
@@ -46,6 +63,7 @@
         #f9d423
       );
     }
+
     body.cloudy {
       background-image: linear-gradient(
         to right top,
@@ -56,6 +74,7 @@
         #9bbac5
       );
     }
+
     body.rainy {
       background-image: linear-gradient(
         to right top,
@@ -67,48 +86,81 @@
       );
     }
   </style>
+</head>
 
-  <body>
-    <div class="bg"></div>
-    <h1>Het weer in Nijmegen :</h1>
-    <div id="weather">
-      <div id="description"></div>
-      <h1 id="temp"></h1>
-      <div id="location"></div>
+<body>
+  <div class="weather-container">
+    <h1>Het weer in Nijmegen:</h1>
+    <div id="weather-nijmegen">
+      <div id="description-nijmegen"></div>
+      <h1 class="temp" id="temp-nijmegen"></h1>
+      <div id="location-nijmegen"></div>
     </div>
+  </div>
 
-    <script lang="text/javascript">
-            function weatherBalloon( cityID ) {
-               var key = '506a12081f234680c7c31873949593cd';
-               fetch('https://api.openweathermap.org/data/2.5/weather?id=' + cityID+ '&appid=' + key)
-               .then(function(resp) { return resp.json() }) // Convert data to json
-               .then(function(data) {
-                  drawWeather(data); // Call drawWeather
-               })
-               .catch(function() {
-                  // catch any errors
-                  });
-              }
+  <div class="weather-container">
+    <h1>Het weer in Drachten:</h1>
+    <div id="weather-drachten">
+      <div id="description-drachten"></div>
+      <h1 class="temp" id="temp-drachten"></h1>
+      <div id="location-drachten"></div>
+    </div>
+  </div>
 
-              window.onload = function() {
-              weatherBalloon( 2750053 ); //city id
-                  }
+  <script lang="text/javascript">
+    function weatherBalloon(cityID, prefix) {
+      var key = '506a12081f234680c7c31873949593cd';
+      fetch('https://api.openweathermap.org/data/2.5/weather?id=' + cityID + '&appid=' + key)
+        .then(function (resp) {
+          return resp.json();
+        })
+        .then(function (data) {
+          drawWeather(data, prefix);
+        })
+        .catch(function () {
+          // handle errors
+        });
+    }
 
-      function drawWeather( d ) {
-         var celcius = Math.round(parseFloat(d.main.temp)-273.15);
-         var fahrenheit = Math.round(((parseFloat(d.main.temp)-273.15)*1.8)+32);
-         var description = d.weather[0].description; document.getElementById('description').innerHTML = description;
-         document.getElementById('temp').innerHTML = celcius + '&deg;';
-         document.getElementById('location').innerHTML = d.name;
+    function drawWeather(d, prefix) {
+  console.log("Weerdata voor " + prefix, d); // Controleer de gegevens
+  
+  var celcius = Math.round(parseFloat(d.main.temp) - 273.15);
+  var description = d.weather[0].description;
 
-         if( description.indexOf('rain') > 0 ) {
-            document.body.className = 'rainy'; }
-         else if( description.indexOf('cloud') > 0 ) {
-            document.body.className = 'cloudy'; }
-            else if( description.indexOf('sunny') > 0 ) {
-                document.body.className = 'sunny';
-            }
-        }
-    </script>
-  </body>
+  // Controleer of de elementen daadwerkelijk bestaan voordat je probeert ze bij te werken
+  if (document.getElementById('temp-' + prefix)) {
+    document.getElementById('temp-' + prefix).innerHTML = celcius + '&deg;';
+  } else {
+    console.log('Element voor temperatuur niet gevonden: ' + 'temp-' + prefix);
+  }
+
+  if (document.getElementById('description-' + prefix)) {
+    document.getElementById('description-' + prefix).innerHTML = description;
+  } else {
+    console.log('Element voor beschrijving niet gevonden: ' + 'description-' + prefix);
+  }
+
+  if (document.getElementById('location-' + prefix)) {
+    document.getElementById('location-' + prefix).innerHTML = d.name;
+  } else {
+    console.log('Element voor locatie niet gevonden: ' + 'location-' + prefix);
+  }
+
+  // Achtergrond wijzigen op basis van beschrijving
+  if (description.indexOf('rain') > 0) {
+    document.body.className = 'rainy';
+  } else if (description.indexOf('cloud') > 0) {
+    document.body.className = 'cloudy';
+  } else if (description.indexOf('sunny') > 0) {
+    document.body.className = 'sunny';
+  }
+}
+
+    window.onload = function () {
+      weatherBalloon(2750053, 'nijmegen'); // Nijmegen
+      weatherBalloon(6544254, 'drachten'); // Drachten
+    };
+  </script>
+</body>
 </html>

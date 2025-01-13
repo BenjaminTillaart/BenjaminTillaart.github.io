@@ -429,6 +429,18 @@ h3.my-profession
     color: var(--skin-color);
 }
 
+.about .about-content .about-text h4
+{
+    font-size: 20px;
+    margin-bottom: 15px;
+    font-weight: 700;
+    color: var(--text-black-900);
+}
+.about .about-content .about-text h4 span
+{
+    color: var(--skin-color);
+}
+
 span
 {
     color: var(--skin-color);
@@ -607,6 +619,7 @@ span
     text-align: justify;
     color: var(--text-black-700);
 }
+
 /* service */
 .service .container
 {

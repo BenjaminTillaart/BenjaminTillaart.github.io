@@ -12,7 +12,11 @@ function initTypedAnimation() {
 }
 
 function loadContent(page) {
-  fetch(page)
+  // Voeg een timestamp toe aan de URL om caching te omzeilen
+  const timestamp = new Date().getTime();
+  const urlWithTimestamp = page + '?t=' + timestamp;
+
+  fetch(urlWithTimestamp)
     .then(response => {
       if (!response.ok) throw new Error(`Error loading ${page}`);
       return response.text();
@@ -21,10 +25,30 @@ function loadContent(page) {
       document.getElementById('content').innerHTML = html;
       window.scrollTo({ top: 0, behavior: 'smooth' });
 
-      // Start de animatie opnieuw als de home-sectie wordt geladen
-      if (page.includes('home.html')) {
-        initTypedAnimation();
+      // Herlaad alle script-tags binnen de geladen HTML
+      document.querySelectorAll('#content script').forEach(script => {
+        const newScript = document.createElement('script');
+        newScript.textContent = script.textContent;
+        document.body.appendChild(newScript);
+        script.remove();
+      });
+
+      // Controleer welke pagina geladen is en voer de juiste acties uit
+      if (page.includes("weerAPI")) {
+        weatherBalloon(2750053, 'nijmegen'); // Nijmegen
+        weatherBalloon(6544254, 'drachten'); // Drachten
       }
+
+      // Start de animatie opnieuw als de homepagina wordt geladen
+      if (page.includes('home.html')) {
+        initTypedAnimation();  // Zorg ervoor dat deze functie aanwezig is op de homepagina
+      }
+
+      // Extra logica voor andere pagina's, bijvoorbeeld Nasa of andere
+      if (page.includes("nasa")) {
+        // Voeg specifieke acties toe voor de Nasa-pagina indien nodig
+      }
+
     })
     .catch(error => {
       console.error(error);
