@@ -685,6 +685,13 @@ span
     line-height: 25px;
 }
 /* portfolio */
+.portfolio p
+{
+    margin-bottom: 70px;
+    font-size: 20px;
+    color: var(--text-black-700);
+}
+
 .portfolio .container
 {
     padding-bottom: 40px;
