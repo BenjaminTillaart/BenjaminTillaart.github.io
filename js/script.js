@@ -36,7 +36,7 @@ function loadContent(page) {
       // Controleer welke pagina geladen is en voer de juiste acties uit
       if (page.includes("weerAPI")) {
         weatherBalloon(2750053, 'nijmegen'); // Nijmegen
-        weatherBalloon(6544254, 'drachten'); // Drachten
+        weatherBalloon(6544290, 'bronckhorst'); // Drachten
       }
 
       // Start de animatie opnieuw als de homepagina wordt geladen
