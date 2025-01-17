@@ -7,12 +7,21 @@ document.getElementById('navigation').innerHTML = `
        <a href="#" data-page="html/portfolio.html"><i class="fa fa-comments"></i>Portfolio groep elk</a>
        <ul class="submenu always-visible">
           <li><a href="#" data-page="html/benjaminPortfolio.html"><i class="fa fa-user"></i>Benjamin</a></li>
-          <li><a href="#" data-page="html/robinPortfolio.html"><i class="fa fa-user"></i>Robin</a></li>
-          <li><a href="#" data-page="html/stijnPortfolio.html"><i class="fa fa-user"></i>Stijn</a></li>
           <ul class="submenu always-visible">
             <li><a href="#" data-page="html/apis/weerAPI.html"><i class="fa fa-user"></i>Weer</a></li>
             <li><a href="#" data-page="html/apis/nasa.html"><i class="fa fa-user"></i>Nasa</a></li>
           </ul>
+          <li><a href="#" data-page="html/robinPortfolio.html"><i class="fa fa-user"></i>Robin</a></li>
+           <ul class="submenu always-visible">
+            <li><a href="#" data-page="html/apis/weerIndex2.html"><i class="fa fa-user"></i>Weer</a></li>
+            <li><a href="#" data-page="html/apis/nasa.html"><i class="fa fa-user"></i>Nasa</a></li>
+          </ul>
+          <li><a href="#" data-page="html/stijnPortfolio.html"><i class="fa fa-user"></i>Stijn</a></li>
+          <ul class="submenu always-visible">
+            <li><a href="#" data-page="html/apis/weerIndex.html"><i class="fa fa-user"></i>Weer</a></li>
+            <li><a href="#" data-page="html/apis/nasa.html"><i class="fa fa-user"></i>Nasa</a></li>
+          </ul>
+          
         </ul>
     </li>
   </ul>

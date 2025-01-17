@@ -36,7 +36,14 @@ function loadContent(page) {
       // Controleer welke pagina geladen is en voer de juiste acties uit
       if (page.includes("weerAPI")) {
         weatherBalloon(2750053, 'nijmegen'); // Nijmegen
-        weatherBalloon(6544290, 'bronckhorst'); // Drachten
+        weatherBalloon(6544290, 'bronckhorst'); 
+      }
+
+       if (page.includes("weerIndex")) {
+        weatherBalloon(6544290, 'bronckhorst'); 
+      }
+      if (page.includes("weerIndex2")) {
+        weatherBalloon(2750053, 'nijmegen'); 
       }
 
       // Start de animatie opnieuw als de homepagina wordt geladen
@@ -48,6 +55,9 @@ function loadContent(page) {
       if (page.includes("nasa")) {
         // Voeg specifieke acties toe voor de Nasa-pagina indien nodig
       }
+      if (page.includes("StijnIndex")) {
+         
+       }
 
     })
     .catch(error => {
