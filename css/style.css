@@ -635,6 +635,12 @@ span
     font-size: 20px;
     color: var(--text-black-700);
 }
+.portfolio ol
+{
+    margin-bottom: 70px;
+    font-size: 20px;
+    color: var(--text-black-700);
+}
 
 .portfolio .container
 {
